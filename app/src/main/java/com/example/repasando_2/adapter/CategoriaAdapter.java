@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.repasando_2.R;
 import com.example.repasando_2.entity.Categoria;
@@ -34,8 +36,12 @@ public class CategoriaAdapter extends RecyclerView.Adapter<CategoriaAdapter.Cate
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoriaAdapterViewHolder categoriaAdapterViewHolder, int i) {
+    public void onBindViewHolder(@NonNull CategoriaAdapterViewHolder holder, int position) {
 
+        Categoria categoria = list_categoria.get(position);
+
+        holder.tv_nombre_categoria.setText(categoria.getNombre().toString());
+        holder.tv_descripcion_categoria.setText(categoria.getDescripcion().toString());
     }
 
     @Override
@@ -45,8 +51,15 @@ public class CategoriaAdapter extends RecyclerView.Adapter<CategoriaAdapter.Cate
 
     public class CategoriaAdapterViewHolder extends RecyclerView.ViewHolder {
 
+        TextView tv_nombre_categoria, tv_descripcion_categoria;
+        ImageView img_categoria;
+
         public CategoriaAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            tv_nombre_categoria = itemView.findViewById(R.id.tv_nombre_categoria);
+            tv_descripcion_categoria = itemView.findViewById(R.id.tv_descripcion_categoria);
+            img_categoria = itemView.findViewById(R.id.img_categoria);
         }
 
     }
