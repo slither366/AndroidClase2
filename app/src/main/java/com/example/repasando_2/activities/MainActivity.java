@@ -1,5 +1,6 @@
 package com.example.repasando_2.activities;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,12 +27,18 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.recycler_categoria)
     RecyclerView recycler_categoria;
-
+    SweetAlertDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        pd = new SweetAlertDialog(this,SweetAlertDialog.PROGRESS_TYPE);
+        pd.getProgressHelper().setBarColor(Color.parseColor("#FFEB3B"));
+        pd.setContentText("Espere ya empieza!");
+        pd.setCancelable(false);
+        pd.show();
 
         ButterKnife.bind(this);
 
@@ -54,11 +62,15 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
+                pd.dismiss();
+
             }
 
             @Override
             public void onFailure(Call<ArrayList<Categoria>> call, Throwable t) {
+
                 Log.e("dflores", t.getMessage().toString());
+                pd.dismiss();
             }
         });
 
